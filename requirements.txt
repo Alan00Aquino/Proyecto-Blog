@@ -3,3 +3,4 @@ filelock==3.12.2
 mysql-connector-python==8.0.32
 platformdirs==3.6.0
 virtualenv==20.23.1
+pillow==10.0.0

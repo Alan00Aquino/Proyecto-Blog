@@ -19,6 +19,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+LOGIN_URL = '/usuarios/login/'
+LOGIN_REDIRECT_URL = '../posts/'
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-uf5d0!i8^^0iv%u87!e5pt5_n_(2&nx(afan52#-h37gz*@!hk'
 
@@ -37,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'apps.posts',
+    'apps.usuarios',
 ]
 
 MIDDLEWARE = [
@@ -71,15 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'blog.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
