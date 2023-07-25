@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block contenido %}
+    
+    <div class="card m-3">
+        <img class="card-img-top" src="{{ posts.imagen.url }}" alt="Card image cap">
+        <div class="card-body">
+            <h4 class="card-title">{{ posts.titulo }}</h4>
+            <p class="card-text">{{ posts.subtitulo }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ posts.categoria }}</li>
+            <li class="list-group-item">{{ posts.texto }}</li>
+            <li class="list-group-item">{{ posts.publicado }}</li>
+        </ul>
+    </div>
+{% endblock contenido %}
