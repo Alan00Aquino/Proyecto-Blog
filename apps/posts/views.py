@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Post
 from .forms import CrearPostForm
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Para trabajar con vistas basadas en Clases
 from django.views.generic import ListView, DetailView, CreateView
@@ -36,7 +37,7 @@ class PostDetailView(DetailView):
     pk_url_kwarg = 'id'
     queryset = Post.objects.all()
 
-class Postear(CreateView):
+class Postear(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'posts/postear.html'
     form_class = CrearPostForm

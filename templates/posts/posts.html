@@ -29,6 +29,11 @@
         {% empty %}
             <h3>No hay noticias</h3>
     {% endfor %}
+
+    
+    {% if user.is_authenticated %}
+        <a href="{% url 'apps.posts:postear' %}" class = "btn btn-primary m-3">Publicar una nueva noticia!!!</a>
+    {% endif %}
         
 {% endblock contenido %}
     
