@@ -22,7 +22,7 @@ class Post(models.Model):
     publicado = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        ordering = ['-publicado']
+        ordering = ['publicado']
 
     def __str__(self):
         return self.titulo

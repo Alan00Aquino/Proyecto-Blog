@@ -6,3 +6,11 @@ h1 {
     display: flex;
     justify-content: center;
 }
+
+.imagen-proporcional {
+    max-width: 300px;
+            height: auto; 
+            display: block;
+            margin: 0 auto;
+}
+
