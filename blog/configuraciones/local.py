@@ -6,9 +6,9 @@ from .settings import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Proyecto_Blog',
+        'NAME': 'proyecto_final',
         'USER': 'root',
-        'PASSWORD': 'estaeslaclave',
+        'PASSWORD': 'Z37796498',
         'HOST': 'localhost',  
         'PORT': '3306',  
     }
