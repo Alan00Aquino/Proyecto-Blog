@@ -41,7 +41,6 @@ class Postear(CreateView):
     template_name = 'posts/postear.html'
     form_class = CrearPostForm
 
-    """
     def get_success_url(self):
-        return reverse('posts:posts')
-    """
+        return reverse('apps.posts:posts')
+    
