@@ -1,2 +1,5 @@
+blog/configuraciones/local.py
+blog/configuraciones/pepe.py
 *.pyc
-local.py 
+local.py
+/blog/configuraciones/local.py
