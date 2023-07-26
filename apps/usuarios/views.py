@@ -10,13 +10,14 @@ from django.urls import reverse
 class RegistroView(CreateView):
     template_name = 'registration/registro.html'
     form_class = RegistrarseForm
+
     
 
     def form_valid(self, form):
         messages.success(self.request, 'Registro exitoso. por favor, inicie sesión.' )
-        form.seve()
+        form.save()
         
-        return redirect('usuarios:login')
+        return redirect('usuarios:registro')
     
 class LoginView(LoginView):
     template_name = 'registration/login.html'
