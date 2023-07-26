@@ -17,15 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import index
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('', include('apps.posts.urls')),
-    path('',include('apps.usuarios.urls'))
-    path('',include('apps.usuarios.urls')),
-    path('',include('apps.contacto.urls')),
-] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+    path('posts/', include('apps.posts.urls')),      # Patrón 'posts/' para la app "posts"
+    path('usuarios/', include('apps.usuarios.urls')),  # Patrón 'usuarios/' para la app "usuarios"
+    path('contacto/', include('apps.contacto.urls')),  # Patrón 'contacto/' para la app "contacto"
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += staticfiles_urlpatterns()
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
->>>>>>> origin/ramazahir
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
