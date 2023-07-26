@@ -9,6 +9,7 @@
     Página de Inicio
   {% endblock title %}
     </title>
+  </head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,6 +41,7 @@
         </a>
       {% endif %}
         <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'usuarios:logout' %}">Mi perfil</a></li>
           <li><a class="dropdown-item" href="{% url 'usuarios:logout' %}">Cerrar sesion</a></li>
         </ul>
   

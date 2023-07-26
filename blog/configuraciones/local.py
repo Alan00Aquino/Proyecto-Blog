@@ -14,4 +14,9 @@ DATABASES = {
     }
 }
 
-#Este es un comentario de prueba
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBanckend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'proyectblog827@gmail.com'
+EMAIL_HOST_PASSWORD = '4dmin1239'

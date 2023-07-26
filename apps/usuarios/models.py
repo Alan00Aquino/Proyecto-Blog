@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 
 
@@ -6,6 +7,11 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Usuario(AbstractUser):
-    telefono = models.CharField(max_length=255)
-    domicilio = models.CharField(max_length=255, blank=True, null=True)
-    es_colaborador = models.BooleanField(default=False)
+    imagen = models.ImageField(null = True, blank = True, upload_to = 'usuarios', default = 'usuarios/user-default.png')
+    telefono = models.CharField(max_length = 255)
+    es_colaborador = models.BooleanField(default = False)
+    es_miembro = models.BooleanField(default = False)
+
+    def get_absolute_url(self):
+        return reverse('posts')
+    

@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+SITE_NAME = 'BLOG TURISMO'
 # Application definition
 
 INSTALLED_APPS = [

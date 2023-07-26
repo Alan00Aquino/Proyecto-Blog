@@ -1,25 +1,36 @@
-from django.shortcuts import render
-from django.views.generic.edit import CreateView
-from .models import Usuario
 from .forms import RegistrarseForm
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic import CreateView
+from django.contrib import messages
+from django.shortcuts import redirect
 from django.urls import reverse
-from django.contrib.auth import login
 
 
-# Create your views here.
 
-# Vista basada en clases que crea un usuario
 class RegistroView(CreateView):
-    model = Usuario
-    template_name = 'usuarios/registro.html'
+    template_name = 'registration/registro.html'
     form_class = RegistrarseForm
-
-    def get_success_url(self):
-        return reverse('index')
     
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        user = form.save()
-        login(self.request, user)
-        return response
+        messages.success(self.request, 'Registro exitoso. por favor, inicie sesión.' )
+        form.seve()
+        
+        return redirect('usuarios:login')
+    
+class LoginView(LoginView):
+    template_name = 'registration/login.html'
+
+    def get_success_url(self):
+        messages.success(self.request,'Inicio de sesión exitoso')
+
+        return reverse('usuarios:login')
+    
+
+class LogoutView(LogoutView):
+    template_name = 'registration/logout.html'
+
+    def get_success_url(self):
+        messages.success(self.request, 'Sesión cerrada con exito.')
+
+        return reverse('usuarios:login')
