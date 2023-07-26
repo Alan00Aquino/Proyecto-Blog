@@ -18,11 +18,11 @@ class Post(models.Model):
     texto = models.TextField(null=False)
     activo = models.BooleanField(default=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, default='Sin categoria')
-    imagen = models.ImageField(null=True, blank=True, upload_to='media', default='static/post_default.png')
+    imagen = models.ImageField(null=True, blank=True, upload_to='media', default='media/post_default.jpg')
     publicado = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        ordering = ['-publicado']
+        ordering = ['publicado']
 
     def __str__(self):
         return self.titulo
