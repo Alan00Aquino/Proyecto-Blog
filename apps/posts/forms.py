@@ -1,6 +1,6 @@
 #from django.forms import ModelForm
 from django import forms
-from .models import Post
+from .models import Post, Comentario
 
 class CrearPostForm(forms.ModelForm):
     class Meta:
@@ -18,3 +18,10 @@ class CrearPostForm(forms.ModelForm):
             'subtitulo': forms.TextInput(attrs={'placeholder': 'Ingrese el resumen o copete', 'class': 'form-control'}),
             'texto': forms.Textarea(attrs={'placeholder': 'Escriba la noticia', 'class': 'form-control', 'rows': 4}),
         }
+
+
+
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['texto']
