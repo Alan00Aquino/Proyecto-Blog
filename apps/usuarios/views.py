@@ -13,11 +13,8 @@ class RegistroView(CreateView):
 
     
 
-    def form_valid(self, form):
-        messages.success(self.request, 'Registro exitoso. por favor, inicie sesión.' )
-        form.save()
-        
-        return redirect('usuarios:registro')
+    def get_success_url(self):
+        return reverse('index')
     
 class LoginView(LoginView):
     template_name = 'registration/login.html'
