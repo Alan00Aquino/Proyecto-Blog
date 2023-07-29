@@ -21,7 +21,9 @@
             </ul>
             <div class="botonera1">
                 <a href="{% url 'apps.posts:post_individual' post.id %}" class="btn btn-primary m-1">Ver Detalle</a>
-                <a href="#" class="btn btn-primary m-1">Otras opciones...</a>
+                <a href="{% url 'apps.posts:editar-post' post.id %}" class="btn btn-primary m-1">Editar</a>
+                <a href="{% url 'apps.posts:eliminar-post' post.id %}" class="btn btn-danger m-1">Eliminar</a>
+                <a href="#" class="btn btn-primary m-1">Me gusta!!!</a>
             </div>
         </div>
 

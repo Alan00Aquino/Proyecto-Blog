@@ -3,7 +3,7 @@ from .models import Post, Comentario
 from .forms import CrearPostForm, ComentarioForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 class PostListView(ListView):
     model = Post
@@ -19,7 +19,7 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     template_name = 'posts/post_individual.html'
-    context_object_name = 'post'
+    context_object_name = 'posts'
     pk_url_kwarg = 'id'
     queryset = Post.objects.all()
 
@@ -47,6 +47,24 @@ class Postear(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'posts/postear.html'
     form_class = CrearPostForm
+
+    def get_success_url(self):
+        return reverse('apps.posts:posts')
+    
+# Vista para actualizar una publicacion ya existente
+class EditarPost(LoginRequiredMixin, UpdateView):
+    model = Post
+    template_name = 'posts/editar-post.html'
+    form_class = CrearPostForm # Uso el mismo de crear una publicacion
+
+    def get_success_url(self):
+        return reverse('apps.posts:posts')
+    
+# Vista que elimina un posteo
+class EliminarPost(LoginRequiredMixin, DeleteView):
+    template_name = 'posts/eliminar-post.html' # Es un template intermedio -esta seguro s-n-
+    model = Post
+
 
     def get_success_url(self):
         return reverse('apps.posts:posts')
