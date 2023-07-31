@@ -8,7 +8,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Proyecto_Blog',
         'USER': 'root',
-        'PASSWORD': 'F3rn3t4340.A',#F3rn3t4340.A
+        'PASSWORD': 'F3rn3t4340.A',  #Alan #F3rn3t4340.A
         'HOST': 'localhost',  
         'PORT': '3306',  
     }
@@ -20,3 +20,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'proyectblog827@gmail.com'
 EMAIL_HOST_PASSWORD = '4dmin1239'
+
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['localshost', '127.0.0.1']

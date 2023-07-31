@@ -28,9 +28,9 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 SECRET_KEY = 'django-insecure-uf5d0!i8^^0iv%u87!e5pt5_n_(2&nx(afan52#-h37gz*@!hk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+
+
 
 SITE_NAME = 'BLOG TURISMO'
 # Application definition
