@@ -14,15 +14,13 @@ class RegistroView(CreateView):
     
 
     def get_success_url(self):
-        return reverse('index')
+        return reverse('usuarios:login')
     
 class LoginView(LoginView):
     template_name = 'registration/login.html'
 
     def get_success_url(self):
-        messages.success(self.request,'Inicio de sesión exitoso')
-
-        return reverse('usuarios:login')
+        return reverse('index')
     
 
 class LogoutView(LogoutView):

@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
+
+
 # Create your models here.
 
 # Categoria
@@ -20,6 +22,7 @@ class Post(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, default='Sin categoria')
     imagen = models.ImageField(null=True, blank=True, upload_to='media', default='media/post_default.jpg')
     publicado = models.DateTimeField(default=timezone.now)
+    creador = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='posteos_usario')
 
     class Meta:
         ordering = ['publicado']
@@ -37,6 +40,6 @@ class Comentario (models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='comentarios')
     texto = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
         return self.texto

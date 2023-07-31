@@ -4,6 +4,7 @@ from .forms import CrearPostForm, ComentarioForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from apps.usuarios.mixins import SuperusuarioAutorMixin, MiembroMixin, ColaboradorMixin
 
 class PostListView(ListView):
     model = Post
@@ -16,7 +17,7 @@ class PostListView(ListView):
         return consulta_ordenada
 
 
-class PostDetailView(DetailView):
+class PostDetailView(DetailView,ColaboradorMixin,SuperusuarioAutorMixin,MiembroMixin):
     model = Post
     template_name = 'posts/post_individual.html'
     context_object_name = 'posts'
@@ -43,16 +44,20 @@ class PostDetailView(DetailView):
             return self.render_to_response(context)
 
 
-class Postear(LoginRequiredMixin, CreateView):
+class Postear(SuperusuarioAutorMixin,LoginRequiredMixin,MiembroMixin, CreateView):
     model = Post
     template_name = 'posts/postear.html'
     form_class = CrearPostForm
 
     def get_success_url(self):
         return reverse('apps.posts:posts')
+    def form_valid(self, form):
+        f = form.save(commit=False)
+        f.creador_id = self.request.user.id
+        return super().form_valid(f)
     
 # Vista para actualizar una publicacion ya existente
-class EditarPost(LoginRequiredMixin, UpdateView):
+class EditarPost(SuperusuarioAutorMixin,ColaboradorMixin,LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'posts/editar-post.html'
     form_class = CrearPostForm # Uso el mismo de crear una publicacion
@@ -61,7 +66,7 @@ class EditarPost(LoginRequiredMixin, UpdateView):
         return reverse('apps.posts:posts')
     
 # Vista que elimina un posteo
-class EliminarPost(LoginRequiredMixin, DeleteView):
+class EliminarPost(SuperusuarioAutorMixin,ColaboradorMixin,LoginRequiredMixin, DeleteView):
     template_name = 'posts/eliminar-post.html' # Es un template intermedio -esta seguro s-n-
     model = Post
 
