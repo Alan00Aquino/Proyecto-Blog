@@ -6,9 +6,9 @@ from .settings import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Proyecto_Blog',
+        'NAME': 'Proyecto_Blog04',
         'USER': 'root',
-        'PASSWORD': 'F3rn3t4340.A',  #Alan #F3rn3t4340.A
+        'PASSWORD': 'estaeslaclave',  #Alan #F3rn3t4340.A
         'HOST': 'localhost',  
         'PORT': '3306',  
     }
@@ -24,4 +24,4 @@ EMAIL_HOST_PASSWORD = 'nqhqivdafeyyxizl'   #4dmin1239
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localshost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']

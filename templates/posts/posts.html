@@ -12,7 +12,11 @@
                 <p class="card-text">{{ post.subtitulo }}</p>
             </div>
             
-            <img class="imagen-proporcional" src="{{ post.imagen.url }}" alt="Card image cap">
+            {% if post.imagen.url != '' %}                
+                <img class="imagen-proporcional" src="{{ post.imagen.url }}" alt="Card image cap">
+            {% else %}
+                <img class="imagen-proporcional" src="{% static 'img/post_default.jpg' %}" alt="Card image cap">
+            {% endif %}
             
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">{{ post.categoria }}</li>
