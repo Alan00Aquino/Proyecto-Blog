@@ -22,7 +22,7 @@
             <div class="botonera1">
                 <a href="{% url 'apps.posts:post_individual' post.id %}" class="btn btn-primary m-1">Ver Detalle</a>
                 
-                {% if user.is_authenticated and user.es_colaborador or user == comentario.usuario %}
+                {% if user.is_authenticated and user.es_colaborador or user == post.creador %}
                     <a href="{% url 'apps.posts:editar-post' post.id %}" class="btn btn-primary m-1">Editar</a>
                     <a href="{% url 'apps.posts:eliminar-post' post.id %}" class="btn btn-danger m-1">Eliminar</a>
                 {% endif %}
@@ -37,7 +37,7 @@
     {% endfor %}
 
     
-    {% if user.is_authenticated or user.es_colaborador %}
+    {% if user.is_authenticated and user.es_colaborador %}
         <a href="{% url 'apps.posts:postear' %}" class="btn btn-primary m-3">Publicar una nueva noticia!!!</a>
     {% endif %}
         
