@@ -19,7 +19,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'proyectblog827@gmail.com'
-EMAIL_HOST_PASSWORD = '4dmin1239'
+EMAIL_HOST_PASSWORD = 'nqhqivdafeyyxizl'   #4dmin1239
 
 
 DEBUG = True

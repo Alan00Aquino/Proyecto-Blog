@@ -43,3 +43,6 @@ class Comentario (models.Model):
 
     def __str__(self):
         return self.texto
+    
+    def delete(self, using = None, keep_parents = False):
+        super().delete()

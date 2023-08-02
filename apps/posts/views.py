@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Comentario
 from .forms import CrearPostForm, ComentarioForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView,View
 from apps.usuarios.mixins import SuperusuarioPostMixin, SuperusuarioComentarioMixin, MiembroMixin, ColaboradorMixin
+
+
 
 class PostListView(ListView):
     model = Post
@@ -73,3 +75,17 @@ class EliminarPost(SuperusuarioPostMixin, ColaboradorMixin, LoginRequiredMixin, 
 
     def get_success_url(self):
         return reverse('apps.posts:posts')
+    
+class EliminarComentario(View, SuperusuarioComentarioMixin, ColaboradorMixin):
+    template_name = 'posts/eliminar-Comentario.html'
+    model = Comentario
+
+    def post(self, request, pk):
+        comentario = get_object_or_404(Comentario, pk=pk)
+        if request.user == comentario.usuario:
+            comentario.delete()
+            return redirect('apps.posts:post_individual', id=comentario.posts.id)
+
+    def get(self, request, pk):
+        comentario = get_object_or_404(Comentario, pk=pk)
+        return redirect('apps.posts:post_individual', id=comentario.posts.id)

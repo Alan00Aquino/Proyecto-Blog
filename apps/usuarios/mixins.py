@@ -13,7 +13,7 @@ class SuperusuarioComentarioMixin(UserPassesTestMixin):
         usuario = self.request.user
         obj = self.get_object()
 
-        return usuario == obj.autor or usuario.is_superuser or usuario == obj.post.creador
+        return usuario == obj.usuario or usuario.is_superuser or usuario == obj.post.usuario
 
 
 class ColaboradorMixin(UserPassesTestMixin):
