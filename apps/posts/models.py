@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from apps.usuarios.models import Usuario
 
 
 # Create your models here.
@@ -38,19 +37,19 @@ class Post(models.Model):
 
 class Comentario (models.Model):
     posts = models.ForeignKey('posts.Post', on_delete=models.CASCADE, related_name='comentarios')
+    autor = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='comentarios')
     texto = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
     fecha_edicion = models.DateTimeField(null=True, blank=True)
-    autor = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='comentarios')
 
     def __str__(self):
-        return self.posts.titulo + '-' + self.autor.first_name
-    
+        return self.texto
+
     def delete(self, using = None, keep_parents = False):
         super().delete()
 
     def save(self, *args, **kwargs):
-        if self.id:
+        if self.pk:
             self.fecha_edicion = timezone.now()
         super().save(*args, **kwargs)
 

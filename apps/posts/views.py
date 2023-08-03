@@ -4,7 +4,7 @@ from .forms import CrearPostForm, ComentarioForm, EditarComentarioForm
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView,View
-from apps.usuarios.mixins import SuperusuarioPostMixin, SuperusuarioComentarioMixin, MiembroMixin, ColaboradorMixin
+from apps.usuarios.mixins import SuperusuarioPostMixin, SuperusuarioComentarioMixin, MiembroMixin, EsColaboradorMixin
 
 
 
@@ -63,7 +63,7 @@ class PostDetailView(DetailView, LoginRequiredMixin):
             return self.render_to_response(context)
 
 
-class Postear(LoginRequiredMixin, CreateView):
+class Postear(LoginRequiredMixin,SuperusuarioPostMixin, EsColaboradorMixin, CreateView):
     model = Post
     template_name = 'posts/postear.html'
     form_class = CrearPostForm
@@ -76,7 +76,7 @@ class Postear(LoginRequiredMixin, CreateView):
         return reverse('apps.posts:posts')
     
 # Vista para actualizar una publicacion ya existente
-class EditarPost(SuperusuarioPostMixin, ColaboradorMixin, LoginRequiredMixin, UpdateView):
+class EditarPost( LoginRequiredMixin,SuperusuarioPostMixin,EsColaboradorMixin, UpdateView):
     model = Post
     template_name = 'posts/editar-post.html'
     form_class = CrearPostForm # Uso el mismo de crear una publicacion
@@ -85,7 +85,7 @@ class EditarPost(SuperusuarioPostMixin, ColaboradorMixin, LoginRequiredMixin, Up
         return reverse('apps.posts:posts')
     
 # Vista que elimina un posteo
-class EliminarPost(SuperusuarioPostMixin, ColaboradorMixin, LoginRequiredMixin, DeleteView):
+class EliminarPost( LoginRequiredMixin,SuperusuarioPostMixin,EsColaboradorMixin, DeleteView):
     template_name = 'posts/eliminar-post.html' # Es un template intermedio -esta seguro s-n-
     model = Post
 
@@ -93,7 +93,7 @@ class EliminarPost(SuperusuarioPostMixin, ColaboradorMixin, LoginRequiredMixin, 
     def get_success_url(self):
         return reverse('apps.posts:posts')
     
-class EliminarComentario(View, SuperusuarioPostMixin, ColaboradorMixin, LoginRequiredMixin):
+class EliminarComentario(View,SuperusuarioComentarioMixin, EsColaboradorMixin, LoginRequiredMixin):
     template_name = 'posts/eliminar-comentario.html'
     model = Comentario
     form_class = EditarComentarioForm
@@ -111,7 +111,7 @@ class EliminarComentario(View, SuperusuarioPostMixin, ColaboradorMixin, LoginReq
     
 
 
-class EditarComentario(SuperusuarioComentarioMixin, LoginRequiredMixin, UpdateView):
+class EditarComentario(LoginRequiredMixin,SuperusuarioComentarioMixin, EsColaboradorMixin, UpdateView):
     model = Comentario
     template_name = 'posts/editar-comentario.html'
     form_class = EditarComentarioForm
