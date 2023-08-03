@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Comentario
-from .forms import CrearPostForm, ComentarioForm
-from django.urls import reverse
+from .forms import CrearPostForm, ComentarioForm, EditarComentarioForm
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView,View
 from apps.usuarios.mixins import SuperusuarioPostMixin, SuperusuarioComentarioMixin, MiembroMixin, ColaboradorMixin
@@ -77,15 +77,26 @@ class EliminarPost(SuperusuarioPostMixin, ColaboradorMixin, LoginRequiredMixin, 
         return reverse('apps.posts:posts')
     
 class EliminarComentario(View, SuperusuarioComentarioMixin, ColaboradorMixin):
-    template_name = 'posts/eliminar-Comentario.html'
+    template_name = 'posts/eliminar-comentario.html'
     model = Comentario
+    success_url = reverse_lazy('apps.posts:posts')
 
     def post(self, request, pk):
         comentario = get_object_or_404(Comentario, pk=pk)
         if request.user == comentario.usuario:
             comentario.delete()
-            return redirect('apps.posts:post_individual', id=comentario.posts.id)
+        return redirect('apps.posts:post_individual', id=comentario.posts.id)
 
     def get(self, request, pk):
         comentario = get_object_or_404(Comentario, pk=pk)
         return redirect('apps.posts:post_individual', id=comentario.posts.id)
+    
+
+class EditarComentario(SuperusuarioComentarioMixin, LoginRequiredMixin, UpdateView):
+    model = Comentario
+    template_name = 'posts/editar-comentario.html'
+    form_class = EditarComentarioForm
+    success_url = reverse_lazy('apps.posts:posts')
+
+    def get_success_url(self):
+        return reverse('apps.posts:post_individual', kwargs={'id': self.object.posts.id})

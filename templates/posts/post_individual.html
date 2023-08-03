@@ -30,10 +30,11 @@
             <p>{{ comentario.texto }}</p>
             <br><br>
         </ul>
-        {% if user.is_authenticated and user.es_colaborador or user == comentario.usuario %}
+        {% if user.is_authenticated and user.es_colaborador or user == comentario.usuario or user.is_superuser %}
             <form method="post" action="{% url 'apps.posts:eliminar-comentario' comentario.id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger m-1">Eliminar</button>
+                <a href="{% url 'apps.posts:editar-comentario' comentario.id %}" class="btn btn-primary m-1">Editar</a>
             </form>
         {% endif %}
     {% empty %}
