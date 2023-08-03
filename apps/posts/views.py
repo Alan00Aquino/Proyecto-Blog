@@ -63,7 +63,7 @@ class PostDetailView(DetailView, LoginRequiredMixin):
             return self.render_to_response(context)
 
 
-class Postear(LoginRequiredMixin,SuperusuarioPostMixin, EsColaboradorMixin, CreateView):
+class Postear(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'posts/postear.html'
     form_class = CrearPostForm
@@ -76,7 +76,7 @@ class Postear(LoginRequiredMixin,SuperusuarioPostMixin, EsColaboradorMixin, Crea
         return reverse('apps.posts:posts')
     
 # Vista para actualizar una publicacion ya existente
-class EditarPost( LoginRequiredMixin,SuperusuarioPostMixin,EsColaboradorMixin, UpdateView):
+class EditarPost( LoginRequiredMixin,EsColaboradorMixin, UpdateView):
     model = Post
     template_name = 'posts/editar-post.html'
     form_class = CrearPostForm # Uso el mismo de crear una publicacion
@@ -85,7 +85,7 @@ class EditarPost( LoginRequiredMixin,SuperusuarioPostMixin,EsColaboradorMixin, U
         return reverse('apps.posts:posts')
     
 # Vista que elimina un posteo
-class EliminarPost( LoginRequiredMixin,SuperusuarioPostMixin,EsColaboradorMixin, DeleteView):
+class EliminarPost( LoginRequiredMixin,EsColaboradorMixin, DeleteView):
     template_name = 'posts/eliminar-post.html' # Es un template intermedio -esta seguro s-n-
     model = Post
 
@@ -93,25 +93,16 @@ class EliminarPost( LoginRequiredMixin,SuperusuarioPostMixin,EsColaboradorMixin,
     def get_success_url(self):
         return reverse('apps.posts:posts')
     
-class EliminarComentario(View,SuperusuarioComentarioMixin, EsColaboradorMixin, LoginRequiredMixin):
+class EliminarComentario(EsColaboradorMixin, LoginRequiredMixin,DeleteView):
     template_name = 'posts/eliminar-comentario.html'
     model = Comentario
-    form_class = EditarComentarioForm
-    success_url = reverse_lazy('apps.posts:posts')
 
-    def post(self, request, pk):
-        comentario = get_object_or_404(Comentario, pk=pk)
-        if request.user == comentario.autor:
-            comentario.delete()
-        return redirect('apps.posts:post_individual', id=comentario.posts.id)
-
-    def get(self, request, pk):
-        comentario = get_object_or_404(Comentario, pk=pk)
-        return redirect('apps.posts:post_individual', id=comentario.posts.id)
+    def get_success_url(self):
+            return reverse('apps.posts:post_individual', args = [self.object.posts.id]) 
     
 
 
-class EditarComentario(LoginRequiredMixin,SuperusuarioComentarioMixin, EsColaboradorMixin, UpdateView):
+class EditarComentario(LoginRequiredMixin, EsColaboradorMixin, UpdateView):
     model = Comentario
     template_name = 'posts/editar-comentario.html'
     form_class = EditarComentarioForm

@@ -3,7 +3,7 @@ from .models import Usuario
 from django import forms
 from django.contrib.auth import authenticate, login
 
-# Clase que crea un formulario
+
 class RegistrarseForm(UserCreationForm):
     class Meta:
         model = Usuario

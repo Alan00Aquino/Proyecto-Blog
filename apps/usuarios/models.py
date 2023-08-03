@@ -13,5 +13,12 @@ class Usuario(AbstractUser):
     es_miembro = models.BooleanField(default = False)
 
     def get_absolute_url(self):
-        return reverse('posts')
-    
+        return reverse('usuario-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.username
+
+
+
+
+
