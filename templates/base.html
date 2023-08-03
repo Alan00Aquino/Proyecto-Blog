@@ -6,7 +6,7 @@
 <head>
   <title>
   {% block title %}
-    Página de Inicio
+    Turismo Chaco
   {% endblock title %}
     </title>
   </head>
@@ -25,12 +25,11 @@
 <body>
   <header>
     <a class= "flex-sm-fill text-sm-center nav-link active" href="#">
-        <img src="{% static 'img/info.jpg' %}" style="max-width: 300px; margin: 30px;" alt="">
+        <img src="{% static 'img/info.jpg' %}" style="max-width: 900px; margin: 30px;" alt="">
     </a>
 
     <nav class="nav nav-pills flex-column flex-sm-row">
-        <a class="flex-sm-fill text-sm-center nav-link active" href="#">TURISMO</a>
-        <a class="flex-sm-fill text-sm-center nav-link" href="{% url 'index' %}">Inicio</a>
+        <a class="flex-sm-fill text-sm-center nav-link active" href="{% url 'index' %}">Inicio</a>
         <a class="flex-sm-fill text-sm-center nav-link" href="{% url 'apps.posts:posts' %}">Noticias</a>
         <a class="flex-sm-fill text-sm-center nav-link" href="#">Sobre Nosotros</a>
         <a class="flex-sm-fill text-sm-center nav-link" href="{% url 'contacto' %}">Contacto</a>

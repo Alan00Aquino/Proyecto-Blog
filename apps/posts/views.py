@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comentario
+from .models import Post, Comentario, Categoria
 from .forms import CrearPostForm, ComentarioForm, EditarComentarioForm
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,12 +14,29 @@ class PostListView(ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        consulta_anterior = super().get_queryset()
-        consulta_ordenada = consulta_anterior.order_by('-publicado')
-        return consulta_ordenada
+        queryset = super().get_queryset()
+        categoria_seleccionada = self.request.GET.get('categoria')
+        if categoria_seleccionada:
+            queryset = queryset.filter(categoria = categoria_seleccionada)
+        orden = self.request.GET.get('orderby')
+        if orden:
+            if orden == 'fecha_asc':
+                queryset = queryset.order_by('fecha')
+            elif orden == 'fecha_desc':
+                queryset = queryset.order_by('-fecha')
+            elif orden == 'alf_asc':
+                queryset = queryset.order_by('titulo')
+            elif orden == 'alf_desc':
+                queryset = queryset.order_by('-titulo')
 
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categorias'] = Categoria.objects.all
+        return context
 
-class PostDetailView(DetailView, SuperusuarioPostMixin, SuperusuarioComentarioMixin, MiembroMixin):
+class PostDetailView(DetailView, LoginRequiredMixin):
     model = Post
     template_name = 'posts/post_individual.html'
     context_object_name = 'posts'
@@ -36,7 +53,7 @@ class PostDetailView(DetailView, SuperusuarioPostMixin, SuperusuarioComentarioMi
         form = ComentarioForm(request.POST)
         if form.is_valid():
             comentario = form.save(commit=False)
-            comentario.usuario = request.user
+            comentario.autor = request.user
             comentario.posts_id = self.kwargs['id']
             comentario.save()
             return redirect('apps.posts:post_individual', id=self.kwargs['id'])
@@ -76,14 +93,15 @@ class EliminarPost(SuperusuarioPostMixin, ColaboradorMixin, LoginRequiredMixin, 
     def get_success_url(self):
         return reverse('apps.posts:posts')
     
-class EliminarComentario(View, SuperusuarioComentarioMixin, ColaboradorMixin):
+class EliminarComentario(View, SuperusuarioPostMixin, ColaboradorMixin, LoginRequiredMixin):
     template_name = 'posts/eliminar-comentario.html'
     model = Comentario
+    form_class = EditarComentarioForm
     success_url = reverse_lazy('apps.posts:posts')
 
     def post(self, request, pk):
         comentario = get_object_or_404(Comentario, pk=pk)
-        if request.user == comentario.usuario:
+        if request.user == comentario.autor:
             comentario.delete()
         return redirect('apps.posts:post_individual', id=comentario.posts.id)
 
@@ -91,6 +109,7 @@ class EliminarComentario(View, SuperusuarioComentarioMixin, ColaboradorMixin):
         comentario = get_object_or_404(Comentario, pk=pk)
         return redirect('apps.posts:post_individual', id=comentario.posts.id)
     
+
 
 class EditarComentario(SuperusuarioComentarioMixin, LoginRequiredMixin, UpdateView):
     model = Comentario
@@ -100,3 +119,4 @@ class EditarComentario(SuperusuarioComentarioMixin, LoginRequiredMixin, UpdateVi
 
     def get_success_url(self):
         return reverse('apps.posts:post_individual', kwargs={'id': self.object.posts.id})
+    

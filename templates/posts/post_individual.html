@@ -25,12 +25,12 @@
 </div>
 <div class="container-fluid" style="margin-bottom: 20px;">
     {% for comentario in comentarios  %}
-        <table>{{comentario.usuario}} - {{comentario.fecha}}</table>
+        <table>{{comentario.autor}} - {{comentario.fecha}}</table>
         <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
             <p>{{ comentario.texto }}</p>
             <br><br>
         </ul>
-        {% if user.is_authenticated and user.es_colaborador or user == comentario.usuario or user.is_superuser %}
+        {% if user.is_authenticated and user.es_colaborador or user == comentario.autor or is_superuser %}
             <form method="post" action="{% url 'apps.posts:eliminar-comentario' comentario.id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger m-1">Eliminar</button>
