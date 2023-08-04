@@ -43,28 +43,28 @@ Se recomienda tener instalado un administrador de base de datos para el producto
 Al tener instalado python tendrá el comando pip con el que podrá instalar el generador de entornos virtuales **virtualenv**
 En una ventana de línea de comandos: CMD en Microsoft Windows o Terminal en un Mac o Linux:
 Creamos una carpeta nueva donde generamos el entorno virtual (por ejemplo: ENTORNOS)
-'''
+```
 pip install virtualenv
-'''
+```
 
 Luego podrá crear un entorno apropiado utilizando :
-'''
+```
 virtualenv nombre_entorno (Ejemplo: virtualenv ve_proyectopropio)
-'''
+```
 
 Deberá activar su entorno virtual de trabajo recien creado ejecutando un archivo script (activate) que se encuenta en el interior de la estructura de carpetas que creo el entorno virtual.
 Estando posicionados en ENTORNOS y siguiendo con el ejemplo ejecutamos el comando:
-'''
+```
 source ./ve_proyectopropio/Scripts/activate
-'''
+```
 Como resultado de esta operación, la linea de comandos mostrará un prompt que inicia con el nombre del entorno virtual activado
 Ejemplo: (ve_proyecto) C:\Users\Usuario\Desktop\ENTORNOS>
 
 Con el entorno virtual activado utilzaremos el archivo requirements.txt para instalar los paquetes necesarios que fueron utilizados en el proyecto original, asi podrá contar con todas las dependencias necesarias en las versiones correspondientes para tener el entorno adecuado y operativo.
 Utilizamos el comando:
-'''
+```
 pip install -r requirements.txt
-'''
+```
 Podrá obtener información especifica de acuerdo a su sistema opetativo y version de librerias que esté utilizando para completar este comando luego de ejecutarlo, por ejemplo: 
 python -m pip install -r requirement.txt
 
@@ -78,21 +78,21 @@ Por ejemplo debe tener el siguiente prompt de su terminal de comandos:
 (ve_proyecto) C:\Users\Usuario\Desktop\PROYECTO>
 
 CLONAR EL REPOSITORIO con el comando:
-'''
+```
 git clone https://github.com/Alan00Aquino/Proyecto-Blog.git
-'''
+```
 
 Creará una base de datos nueva con ayuda del Mysql Workbench 8.0 CE, luego de conectarse con el usuario administrador inicial root y la clave que se generó en la instalación del motor Mysql.
-'''
+```
 create database proyectoblog;
 use proyectoblog;
-'''
+```
 
 **ULTIMAS OPERACIONES**
 - Trabajará con los archivos de configuración: settings.py
 - Cargará la información de conexión para el motor Mysql:
 Por ejemplo:
-'''
+```
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -103,7 +103,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-'''
+```
 Fragmento de codigo extraido de https://codigofacilito.com/articulos/articulo_15_10_2019_16_52_20
 
 Una vez que el proyecto tenga su conexión efectiva con la base de datos asignada al proyecto:
