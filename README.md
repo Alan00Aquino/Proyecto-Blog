@@ -109,25 +109,25 @@ Fragmento de codigo extraido de https://codigofacilito.com/articulos/articulo_15
 Una vez que el proyecto tenga su conexión efectiva con la base de datos asignada al proyecto:
 ejecutar los comandos:
 - Creamos un usuario administrador para el proyecto
-  '''
+  ```
   python manage.py createsuperuser
-  '''
+  ```
   
 - Preparamos los archivos para migrar los datos a la base de datos:
-  '''
+  ```
   python manage.py makemigrations
-  '''
+  ```
   
 - Efectivizamos la migración de los datos a la base de datos:
-  '''
+  ```
   python manage.py migrate
-  '''
+  ```
   Esto construye las tablas en la base de datos a partir de lo modelos declarados en el proyecto.
   
 - Finalmente podrá correr una instancia local del proyecto clonado en su computadora personal con el siguiente comando:
-  '''
+  ```
   python manage.py runserver
-  '''
+  ```
   Abrir un navegador de internet en la siguiente dirección:
   localhost:8000
 
