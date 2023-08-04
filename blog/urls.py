@@ -14,9 +14,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+from django.contrib import admin 
 from django.urls import path, include
-from .views import index, pagina_404
+from .views import index, pagina_404, nosotrosView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -27,6 +27,7 @@ urlpatterns = [
     path('posts/', include('apps.posts.urls')),     
     path('usuarios/', include('apps.usuarios.urls')), 
     path('contacto/', include('apps.contacto.urls')),
+    path('nosotros/', nosotrosView, name = 'nosotros'),
     path('', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += staticfiles_urlpatterns()
