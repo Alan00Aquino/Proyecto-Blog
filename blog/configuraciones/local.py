@@ -2,8 +2,8 @@ from .settings import *
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-'''
-DATABASES = {
+
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Proyecto_Blog',
@@ -22,6 +22,3 @@ EMAIL_HOST_USER = 'proyectblog827@gmail.com'
 EMAIL_HOST_PASSWORD = 'nqhqivdafeyyxizl'   #4dmin1239 #MySQL 
 
 
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']

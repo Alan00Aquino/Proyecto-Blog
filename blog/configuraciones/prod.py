@@ -12,3 +12,8 @@ DATABASES = {
         'PORT': '3306',  
     }
 }
+
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['AlanSuperuser.pythonanywhere.com']
