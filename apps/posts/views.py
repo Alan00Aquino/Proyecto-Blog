@@ -29,7 +29,7 @@ class PostListView(ListView):
                 queryset = queryset.order_by('-titulo')
 
         return queryset
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categorias'] = Categoria.objects.all
@@ -44,7 +44,7 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = ComentarioForm() 
+        context['form'] = ComentarioForm()
         context['comentarios'] = Comentario.objects.filter(posts_id=self.kwargs['id'])
         return context
 
@@ -73,7 +73,7 @@ class Postear(LoginRequiredMixin, EsColaboradorMixin, CreateView):
 
     def get_success_url(self):
         return reverse('apps.posts:posts')
-    
+
 # Vista para actualizar una publicacion ya existente
 class EditarPost(LoginRequiredMixin, EsColaboradorMixin, UpdateView):
     model = Post
@@ -82,7 +82,7 @@ class EditarPost(LoginRequiredMixin, EsColaboradorMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('apps.posts:posts')
-    
+
 # Vista que elimina un posteo
 class EliminarPost(LoginRequiredMixin, EsColaboradorMixin, DeleteView):
     template_name = 'posts/eliminar-post.html' # Es un template intermedio -esta seguro s-n-
@@ -91,14 +91,14 @@ class EliminarPost(LoginRequiredMixin, EsColaboradorMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('apps.posts:posts')
-    
+
 class EliminarComentario(LoginRequiredMixin, EsColaboradorMixin, DeleteView):
-    template_name = 'posts/eliminar-comentario.html'
+    template_name = 'posts/eliminar-Comentario.html'
     model = Comentario
 
     def get_success_url(self):
-            return reverse('apps.posts:post_individual', args = [self.object.posts.id]) 
-    
+            return reverse('apps.posts:post_individual', args = [self.object.posts.id])
+
 
 
 class EditarComentario(LoginRequiredMixin, EsColaboradorMixin, UpdateView):

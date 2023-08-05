@@ -11,7 +11,7 @@ class Categoria(models.Model):
 
     def __str__(self):
         return self.nombre
-    
+
 # Post
 class Post(models.Model):
     titulo = models.CharField(max_length=50, null=False)
@@ -20,7 +20,7 @@ class Post(models.Model):
     texto = models.TextField(null=False)
     activo = models.BooleanField(default=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, default='Sin categoria')
-    imagen = models.ImageField(null=True, blank=True, upload_to='media')
+    imagen = models.ImageField(null=True, blank=True, upload_to='media', default='../static/img/post_default.jpg')
     publicado = models.DateTimeField(default=timezone.now)
     creador = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='posteos_usario')
 
@@ -29,7 +29,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.titulo
-    
+
     def delete(self, using = None, keep_parents = False):
         self.imagen.delete(self.imagen.name)
         super().delete()
