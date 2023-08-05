@@ -35,7 +35,7 @@ class PostListView(ListView):
         context['categorias'] = Categoria.objects.all
         return context
 
-class PostDetailView(LoginRequiredMixin,DetailView):
+class PostDetailView(DetailView):
     model = Post
     template_name = 'posts/post_individual.html'
     context_object_name = 'posts'

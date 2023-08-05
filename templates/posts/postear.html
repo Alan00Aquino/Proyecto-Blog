@@ -5,7 +5,7 @@
 {% block contenido %}
     <h3>Publicar una noticia</h3>
     <div class="m-3">
-        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <form method="post" class=" bg-secondary m-3" enctype="multipart/form-data">{% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Publicar</button>
         </form>
