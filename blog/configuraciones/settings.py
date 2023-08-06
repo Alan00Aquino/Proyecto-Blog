@@ -28,9 +28,9 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 SECRET_KEY = 'django-insecure-uf5d0!i8^^0iv%u87!e5pt5_n_(2&nx(afan52#-h37gz*@!hk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['AlanSuperuser.pythonanywhere.com']
+ALLOWED_HOSTS = ['AlanSuperuser.pythonanywhere.com','127.0.0.1']
 
 
 
@@ -118,11 +118,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = (os.path.join(os.path.dirname(BASE_DIR),'static'),)
 
 if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_ROOT = [os.path.join(BASE_DIR, 'staticfiles')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
